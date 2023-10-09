@@ -5,9 +5,9 @@ using Cinemachine;
 using Unity.VisualScripting;
 using TMPro;
 using System.Runtime.InteropServices;
-using Mirror;
 
-public class StationTriggersMultiplayer : NetworkBehaviour
+
+public class StationTriggersMultiplayer : MonoBehaviour
 {
     [DllImport("__Internal")]
     private static extern void leaderBoardToggle();
@@ -29,7 +29,7 @@ public class StationTriggersMultiplayer : NetworkBehaviour
     {
         Debug.Log("Collider has been activated ");
 
-        localCheck = other.GetComponent<NetworkIdentity>().isLocalPlayer;
+       
         if (localCheck)
         {
 
@@ -80,7 +80,7 @@ public class StationTriggersMultiplayer : NetworkBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        localCheck = other.GetComponent<NetworkIdentity>().isLocalPlayer;
+       
         if (localCheck)
         {
 

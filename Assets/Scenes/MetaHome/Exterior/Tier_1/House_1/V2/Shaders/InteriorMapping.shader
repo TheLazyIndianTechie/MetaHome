@@ -65,13 +65,15 @@ Shader "Custom/InteriorMapping"
 	{
 		Tags{ "RenderType" = "Opaque"  "Queue" = "Geometry+0" "IsEmissive" = "true"  }
 		Cull Back
+
+		
 		CGPROGRAM
+
 		
 		#include "Shadows.cginc"
 		#include "UnityCG.cginc"
 		#include "UnityPBSLighting.cginc"
 		#include "Lighting.cginc"
-
 
 
 		#pragma surface surf Standard keepalpha fullforwardshadows 
@@ -114,6 +116,7 @@ Shader "Custom/InteriorMapping"
 		float _AnimationSpeed;
 		float _DecorationChance;
 
+		
 		struct Input
 		{
 			float3 worldNormal;

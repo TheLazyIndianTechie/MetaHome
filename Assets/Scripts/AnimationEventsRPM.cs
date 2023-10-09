@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class AnimationEventsRPM : NetworkBehaviour
+
+public class AnimationEventsRPM : MonoBehaviour
 {
     private void OnFootstep(AnimationEvent animationEvent)
     {

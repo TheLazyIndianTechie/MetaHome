@@ -2,37 +2,44 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public class LevelManager : MonoBehaviour
 {
-    public void LoadMetaHome()
+    public static void LoadMetaHome()
     {
         SceneManager.LoadSceneAsync((int)SceneIndex.LOBBY_SCENE);
         Debug.Log("Loaded Scene: " + SceneIndex.LOBBY_SCENE);
     }
 
-
-    public void LoadMetaHomeExterior()
+    public static void LoadMetaHomeExterior()
     {
         SceneManager.LoadSceneAsync((int)SceneIndex.METAHOME_EXTERIOR_SCENE);
         Debug.Log("Loaded Scene: " + SceneIndex.METAHOME_EXTERIOR_SCENE);
     }
 
-    public void LoadMetaHomeInterior()
+    public static void LoadMetaHomeInterior()
     {
         SceneManager.LoadSceneAsync((int)SceneIndex.METAHOME_INTERIOR_SCENE);
         Debug.Log("Loaded Scene: " + SceneIndex.METAHOME_INTERIOR_SCENE);
     }
 
-    public void LoadMetaPortOrbit()
+    public static void LoadMetaPortOrbit()
     {
         SceneManager.LoadSceneAsync((int)SceneIndex.METAPORT_ORBIT);
         Debug.Log("Loaded Scene: " + SceneIndex.METAPORT_ORBIT);
     }
 
-    public void LoadMetaPortPortal(string url)
+    public static void LoadMetaPortPortal(string url)
     {
-        LinkMaster.url = url;
+        
+        LinkMaster.URL = url;
+
         SceneManager.LoadSceneAsync((int)(SceneIndex.METAPORT_LOADER));
+    }
+
+    public void SetMetaPortDestination(string destination)
+    {
+        Variables.Application.Set("MetaPortDestination", destination);
     }
 }

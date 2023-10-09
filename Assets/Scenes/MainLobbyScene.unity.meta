@@ -1,6 +1,7 @@
 fileFormatVersion: 2
 guid: 4da18aa9bb02546a989ab792d6a6f5d1
 labels:
+- BuildScenes
 - LobbyScenes
 - MainScene
 DefaultImporter:

@@ -1,67 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
-
 
 public class EnterHomeTrigger : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject doorOpenPanel;
+    // [SerializeField]
+    // private GameObject exteriorDoorCanvas;
+    //
+    // [SerializeField]
+    // private TMP_Text loadingStatus;
 
-    [SerializeField]
-    private GameObject slidingDoor;
-
-    private Animator _anim;
-
-    //public Transform playerTransform;
-
-    public string sceneToLoad;
-
-    //[SerializeField]
-    //private float playerXTransform, playerYTransform, playerZTransform;
-
-    private void Awake()
-    {
-        if (slidingDoor != null)
-        {
-            _anim = slidingDoor.GetComponent<Animator>();
-
-        }
-    
-
-    }
-
-
-    private bool isPlayerActive = false;
-
-    private void Start()
-    {
-        if (doorOpenPanel != null)
-        {
-            doorOpenPanel.SetActive(false);
-        }
-    }
-
+    private bool _isPlayerInTrigger = false;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && _isPlayerInTrigger)
         {
-            if (doorOpenPanel != null)
-            {
-                doorOpenPanel.SetActive(false);
-            }
-
-            if (!isPlayerActive)
-            {
-                Debug.Log("Player is not ready to enter");
-            }
-
-            else
-            {
-                StartCoroutine(OpenDoor());
-            }
+           // StartCoroutine(OpenDoor());
+           SceneManager.LoadSceneAsync((int)SceneIndex.METAHOME_INTERIOR_SCENE);
         }
     }
 
@@ -69,47 +24,29 @@ public class EnterHomeTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log(other.name + " has entered collider ");
-            isPlayerActive = true;
-
-            string s = SceneManager.GetActiveScene().name;
-
-            Debug.Log("Previous Scene: " + s);
-
-            Variables.Application.Set("PreviouslyLoadedScene", s);
-            Debug.Log("Scene set to: " + Variables.Application.Get("PreviouslyLoadedScene"));
-
-
-            if (doorOpenPanel != null)
-            {
-                doorOpenPanel.SetActive(true);
-            }
-
-            
+            _isPlayerInTrigger = true;
+            // exteriorDoorCanvas?.SetActive(true);
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isPlayerInTrigger = false;
+            // exteriorDoorCanvas?.SetActive(false);
+        }
+    }
 
     IEnumerator OpenDoor()
     {
-        
-        if (sceneToLoad != null)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync((int)SceneIndex.METAHOME_INTERIOR_SCENE);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
         {
-
-            if (_anim != null)
-            {
-                _anim.SetTrigger("OpenDoor");
-            }
-
-            yield return new WaitForSecondsRealtime(2f);
-
-            SceneManager.LoadSceneAsync(sceneToLoad);
-            //playerTransform.SetPositionAndRotation(new Vector3(playerXTransform, playerYTransform, playerZTransform), Quaternion.LookRotation(Vector3.forward));
-
+            // loadingStatus.text = "Loading Status: " + (asyncLoad.progress * 100) + "%";
             yield return null;
-                
         }
-        
     }
-
 }

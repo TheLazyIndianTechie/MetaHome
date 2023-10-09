@@ -1,24 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using WowPortals.PortalScripts;
 
 public class LinkMaster : MonoBehaviour
 {
-    public static string url = "https://metaport.to/decentraland";
-
-
+    public static string URL = "https://world-bridge.metaport.to/";
+    
     [DllImport("__Internal")]
     private static extern void LinkBetweenWorlds(string url);
+    
+    private void OnEnable() => PortalManager.OnPortalActivated += LaunchPage;
+    private void OnDisable() => PortalManager.OnPortalActivated -= LaunchPage;
 
-    public void LaunchPage()
+    public static void LaunchPage()
     {
-        LinkBetweenWorlds(url);
-    }
-
-    private void Start()
-    {
-        Invoke(nameof(LaunchPage), 4f);
+        Debug.Log("Launching page");
+        LinkBetweenWorlds(URL);
     }
 }

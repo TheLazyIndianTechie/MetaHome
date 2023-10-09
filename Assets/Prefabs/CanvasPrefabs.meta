@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 0e00594ec8efe4ae5b39230fb7860492
+labels:
+- CanvasPrefabs
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

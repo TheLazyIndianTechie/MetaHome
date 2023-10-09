@@ -1,8 +1,6 @@
 using Cinemachine;
-using Mirror;
 using UnityEditor;
 using UnityEngine;
-//using UnityEngine.InputSystem;
 using System.Collections;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -81,13 +79,20 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        //***************************************** CUSTOM CODE ***************************************************
+        //Custom code by Raghav
         [HideInInspector] public StaminaCtrl staminactrl;
         [SerializeField] public GameObject health;
         [SerializeField] public GameObject playerDied;
-        //[SerializeField] public GameObject Player;
+        
         [SerializeField] public GameObject SpawnEffect;
         [HideInInspector] public Vector3 SpawnPoint;
         [HideInInspector] private Health healthctrl;
+
+        //************************************** END CUSTOM CODE ******************************************************
+        //End of Custom Code
+
+
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -101,7 +106,15 @@ namespace StarterAssets
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
+
+        //**************************************** CUSTOM CODE ****************************************************
+        //Custom code by Vinay
+
         public string[] CustomEmote;
+        //End custom code
+        //**************************************** END CUSTOM CODE ****************************************************
+
+
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -128,9 +141,6 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
-        //networked animation code....
-        //SyncVars
-        
         private bool groundCheck;
 
         
@@ -145,19 +155,13 @@ namespace StarterAssets
         
         private bool freeFall;
 
-        
-        private bool emote1;
+
+        //****************************** CUSTOM CODE **************************************************************
+        private bool emote1, emote2, emote3;
+        //******************************** END CUSTOM CODE ************************************************************
 
         
-        private bool emote2;
 
-       
-        private bool emote3;
-
-        //
-
-        //Command or Server Methods.
-       
         private void cmdGroundChanged(bool newVal) { groundCheck = newVal; }
 
        
@@ -173,38 +177,38 @@ namespace StarterAssets
         private void cmdFreeFallChanged(bool newVal) { freeFall = newVal; }
 
 
-        
-        private void cmdEmote1(bool newVal) { emote1 = newVal; }
+        //********************************************************************************************
+        //private void cmdEmote1(bool newVal) { emote1 = newVal; }
 
         
-        private void cmdEmote2(bool newVal) { emote2 = newVal; }
+        //private void cmdEmote2(bool newVal) { emote2 = newVal; }
 
         
-        private void cmdEmote3(bool newVal) { emote3 = newVal; }
+        //private void cmdEmote3(bool newVal) { emote3 = newVal; }
         //
         //custom animation emote functions (valimkhan)
-        public void OnEmote01()
-        {
-            Debug.Log("Emote 01 was pressed in Input section");
-            _animator.SetBool("Emote01", true);
-            cmdEmote1(true);
-            //call command Function..
-        }
+        //public void OnEmote01()
+        //{
+        //    Debug.Log("Emote 01 was pressed in Input section");
+        //    _animator.SetBool("Emote01", true);
+        //    cmdEmote1(true);
+        //    //call command Function..
+        //}
 
-        public void OnEmote02()
-        {
-            Debug.Log("Emote 02 was pressed in Input section");
-            _animator.SetBool("Emote02", true);
-            cmdEmote2(true);
-        }
+        //public void OnEmote02()
+        //{
+        //    Debug.Log("Emote 02 was pressed in Input section");
+        //    _animator.SetBool("Emote02", true);
+        //    cmdEmote2(true);
+        //}
 
-        public void OnEmote03()
-        {
-            Debug.Log("Emote 03 was pressed in Input section");
-            _animator.SetBool("Emote03", true);
-            cmdEmote3(true);
+        //public void OnEmote03()
+        //{
+        //    Debug.Log("Emote 03 was pressed in Input section");
+        //    _animator.SetBool("Emote03", true);
+        //    cmdEmote3(true);
 
-        }
+        //}
 
         private void UpdateAnimatorParams()
         {
@@ -295,7 +299,7 @@ namespace StarterAssets
             //Debug.Log(Application.dataPath);
 
 
-            Debug.Log(staminactrl);
+            
             if (staminactrl == null)
             {
                 staminactrl = GetComponent<StaminaCtrl>();
@@ -313,12 +317,12 @@ namespace StarterAssets
 
         //set all emote bools to false...
 
-        private void SetAllEmotesToFalse()
-        {
-            cmdEmote1(false);
-            cmdEmote2(false);
-            cmdEmote3(false);
-        }
+        //private void SetAllEmotesToFalse()
+        //{
+        //    cmdEmote1(false);
+        //    cmdEmote2(false);
+        //    cmdEmote3(false);
+        //}
 
         private bool lockmode = false;
 
@@ -342,30 +346,30 @@ namespace StarterAssets
 
 
           
-            if (_speed > 0)
-            {
-                SetAllEmotesToFalse();
-            }
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                SetAllEmotesToFalse();
-                cmdEmote1(true);
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                SetAllEmotesToFalse();
-                cmdEmote2(true);
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                SetAllEmotesToFalse();
-                cmdEmote3(true);
-            }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
+            //if (_speed > 0)
+            //{
+            //    SetAllEmotesToFalse();
+            //}
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    SetAllEmotesToFalse();
+            //    cmdEmote1(true);
+            //}
+            //if (Input.GetKeyDown(KeyCode.C))
+            //{
+            //    SetAllEmotesToFalse();
+            //    cmdEmote2(true);
+            //}
+            //if (Input.GetKeyDown(KeyCode.V))
+            //{
+            //    SetAllEmotesToFalse();
+            //    cmdEmote3(true);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
 
-                SetAllEmotesToFalse();
-            }
+            //    SetAllEmotesToFalse();
+            //}
             if (Input.GetKeyDown(KeyCode.H))
             {
 
@@ -631,7 +635,7 @@ namespace StarterAssets
                             staminactrl.StaminaJump();
                         }
                         //setting the emotes off on the jump also..
-                        SetAllEmotesToFalse();
+                        //SetAllEmotesToFalse();
 
                     }
                 }

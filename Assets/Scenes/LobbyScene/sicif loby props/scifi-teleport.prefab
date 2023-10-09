@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8906125113643110030}
   - component: {fileID: 8906125113642340014}
   - component: {fileID: 8906125113641340014}
-  - component: {fileID: 4064312577775069539}
+  - component: {fileID: 4346013394887529931}
   m_Layer: 0
   m_Name: scifi-teleport
   m_TagString: Untagged
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4064312577775069539
-MeshCollider:
+--- !u!65 &4346013394887529931
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -97,7 +97,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: a5847f2908984194e8a5c379a9123f8f, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2.9966238, y: 2.2749996, z: 3.456586}
+  m_Center: {x: 0.00000006014705, y: 1.1368668, z: 0.15287443}

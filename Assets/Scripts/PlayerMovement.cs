@@ -1,5 +1,4 @@
 using Cinemachine;
-using Mirror;
 using UnityEditor;
 using UnityEngine;
 //using UnityEngine.InputSystem;
@@ -17,7 +16,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class PlayerMovement : NetworkBehaviour
+    public class PlayerMovement : MonoBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -120,64 +119,14 @@ namespace StarterAssets
 
         //networked animation code....
         //SyncVars
-        [SyncVar]
-        private bool groundCheck;
-
-        [SyncVar]
-        private float speed;
-
-        [SyncVar]
-        private float motionSpeed;
-
-        [SyncVar]
-        private bool jump;
-
-        [SyncVar]
-        private bool freeFall;
-
-        [SyncVar]
-        private bool emote1;
-
-        [SyncVar]
-        private bool emote2;
-
-        [SyncVar]
-        private bool emote3;
-
-        //
-
-        //Command or Server Methods.
-        [Command]
-        private void cmdGroundChanged(bool newVal) { groundCheck = newVal; }
-
-        [Command]
-        private void cmdSpeedChanged(float newVal) { speed = newVal; }
-
-        [Command]
-        private void cmdMotionSpeedChanged(float newVal) { motionSpeed = newVal; }
-
-        [Command]
-        private void cmdJumpChanged(bool newVal) { jump = newVal; }
-
-        [Command]
-        private void cmdFreeFallChanged(bool newVal) { freeFall = newVal; }
-
-
-        [Command]
-        private void cmdEmote1(bool newVal) { emote1 = newVal; }
-
-        [Command]
-        private void cmdEmote2(bool newVal) { emote2 = newVal; }
-
-        [Command]
-        private void cmdEmote3(bool newVal) { emote3 = newVal; }
+       
         //
         //custom animation emote functions (valimkhan)
         public void OnEmote01()
         {
             Debug.Log("Emote 01 was pressed in Input section");
             _animator.SetBool("Emote01", true);
-            cmdEmote1(true);
+          
             //call command Function..
         }
 
@@ -185,33 +134,18 @@ namespace StarterAssets
         {
             Debug.Log("Emote 02 was pressed in Input section");
             _animator.SetBool("Emote02", true);
-            cmdEmote2(true);
+            
         }
 
         public void OnEmote03()
         {
             Debug.Log("Emote 03 was pressed in Input section");
             _animator.SetBool("Emote03", true);
-            cmdEmote3(true);
+           
 
         }
 
-        private void UpdateAnimatorParams()
-        {
-            if (_hasAnimator)
-            {
-                _animator.SetBool(_animIDGrounded, groundCheck);
-                _animator.SetFloat(_animIDSpeed, speed);
-                _animator.SetFloat(_animIDMotionSpeed, motionSpeed);
-                _animator.SetBool(_animIDJump, jump);
-                _animator.SetBool(_animIDFreeFall, freeFall);
-
-                //custom assignments valimkhan
-                _animator.SetBool("Emote01", emote1);
-                _animator.SetBool("Emote02", emote2);
-                _animator.SetBool("Emote03", emote3);
-            }
-        }
+      
 
         //
         //Networked Animation Code Finished....
@@ -242,22 +176,8 @@ namespace StarterAssets
 
         }
 
-        public override void OnStartLocalPlayer()
-        {
-            GameObject.FindGameObjectWithTag("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>().Follow = transform.GetChild(0).transform;
+       
 
-        }
-
-        public override void OnStartAuthority()
-        {
-            base.OnStartAuthority();
-
-            PlayerInput playerInput = GetComponent<PlayerInput>();
-            playerInput.enabled = true;
-
-
-
-        }
 
         private void Start()
         {
@@ -295,63 +215,16 @@ namespace StarterAssets
 
         //set all emote bools to false...
 
-        private void SetAllEmotesToFalse()
-        {
-            cmdEmote1(false);
-            cmdEmote2(false);
-            cmdEmote3(false);
-        }
-
         private bool lockmode = false;
 
         //
         private void Update()
         {
-            _animator = GetComponentInChildren<Animator>();
-            if (_animator != null)
-            {
-                _hasAnimator = true;
-            }
-            else
-            {
-                _hasAnimator = false;
-            }
-            //_hasAnimator = TryGetComponent(out _animator);
-            UpdateAnimatorParams();
-
+          
            
 
 
 
-            if (!isLocalPlayer)
-            {
-                return;
-            }
-
-            if (_speed > 0)
-            {
-                SetAllEmotesToFalse();
-            }
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                SetAllEmotesToFalse();
-                cmdEmote1(true);
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                SetAllEmotesToFalse();
-                cmdEmote2(true);
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                SetAllEmotesToFalse();
-                cmdEmote3(true);
-            }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-
-                SetAllEmotesToFalse();
-            }
             if (Input.GetKeyDown(KeyCode.H))
             {
 
@@ -401,8 +274,7 @@ namespace StarterAssets
             if (_hasAnimator)
             {
                 _animator.SetBool(_animIDGrounded, Grounded);
-                cmdGroundChanged(Grounded);
-
+               
                 
             }
         }
@@ -493,9 +365,7 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-                cmdSpeedChanged(_animationBlend);
-                cmdMotionSpeedChanged(inputMagnitude);
-
+              
             }
         }
 
@@ -511,8 +381,7 @@ namespace StarterAssets
                 {
                     _animator.SetBool(_animIDJump, false);
                     _animator.SetBool(_animIDFreeFall, false);
-                    cmdJumpChanged(false);
-                    cmdFreeFallChanged(false);
+                    
 
                     
                 }
@@ -533,11 +402,11 @@ namespace StarterAssets
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDJump, true);
-                        cmdJumpChanged(true);
+                        
 
 
                         //setting the emotes off on the jump also..
-                        SetAllEmotesToFalse();
+                     
                        
                     }
                 }
@@ -564,7 +433,7 @@ namespace StarterAssets
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDFreeFall, true);
-                        cmdFreeFallChanged(true);
+                        
 
                     }
                 }

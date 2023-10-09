@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 
-public class ChatManager : NetworkBehaviour
+public class ChatManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI chatText;
 
@@ -36,7 +35,7 @@ public class ChatManager : NetworkBehaviour
     void Start()
     {
         myColor = nameColors[(int)Random.Range(0, nameColors.Length)];
-        FindLocalPlayer();
+       
     }
 
     // Update is called once per frame
@@ -69,7 +68,7 @@ public class ChatManager : NetworkBehaviour
         
     }
 
-    [Command(requiresAuthority = false)]
+
     private void BroadcastChatMessage(string message)
     {
         UpdateChatUI(message);
@@ -77,7 +76,7 @@ public class ChatManager : NetworkBehaviour
     }
 
 
-    [ClientRpc]
+    
     private void UpdateChatUI(string message)
     {
         notificationSound.Play();
@@ -100,22 +99,22 @@ public class ChatManager : NetworkBehaviour
         TogglePlayerInput(isChatMode);
     }
 
-    private void FindLocalPlayer()
-    {
-        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-        if (localPlayer != null)
-        {
-            localPlayer = allPlayers[0];
-        }
-        for (int i = 0; i < allPlayers.Length; i++)
-        {
-            if (allPlayers[i].GetComponent<NetworkBehaviour>().isLocalPlayer)
-            {
-                localPlayer = allPlayers[i];
-                Debug.Log("this is local player!");
-            }
-        }
-    }
+    //private void FindLocalPlayer()
+    //{
+    //    GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+    //    if (localPlayer != null)
+    //    {
+    //        localPlayer = allPlayers[0];
+    //    }
+    //    for (int i = 0; i < allPlayers.Length; i++)
+    //    {
+    //        if (allPlayers[i].GetComponent<NetworkBehaviour>().isLocalPlayer)
+    //        {
+    //            localPlayer = allPlayers[i];
+    //            Debug.Log("this is local player!");
+    //        }
+    //    }
+    //}
 
     private void TogglePlayerInput(bool ischatmode)
     {

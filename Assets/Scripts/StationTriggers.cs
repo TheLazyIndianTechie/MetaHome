@@ -12,10 +12,12 @@ public class StationTriggers : MonoBehaviour
     public AudioSource audioFile;
     public TextMeshProUGUI ActivityLog;
     public GameObject Panel;
+    public GameObject metaportGameObject;
 
     private string _parentName;
     private TextMeshProUGUI _activityLog;
 
+    private bool status = true;
     private void Awake()
     {
         _parentName = this.gameObject.name;
@@ -24,7 +26,7 @@ public class StationTriggers : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && status)
         {
             Debug.Log(other.gameObject.name +" has entered collider "+ _parentName);
             string notify = "<b><color=#90ee90>" + other.gameObject.name + "</b></color> has entered collider <color=#FFCCCB>" + this.name + "</color>";
@@ -54,6 +56,10 @@ public class StationTriggers : MonoBehaviour
                     Invoke(nameof(ActivatePanel), 2f);
                 }
 
+                if(metaportGameObject != null)
+                {
+                    Invoke(nameof(DeactivateMetaportVisibility), 2f);
+                }
 
                 if (ActivityLog != null)
                 {
@@ -71,6 +77,7 @@ public class StationTriggers : MonoBehaviour
                 //ActivateLog();
                 //Invoke(nameof(DeactivateLog), 5f);
             }
+
         }
     }
 
@@ -93,6 +100,7 @@ public class StationTriggers : MonoBehaviour
                 vCam.gameObject.SetActive(false);
 
                 DeactivatePanel();
+                ActivateMetaportVisibility();
 
                 Debug.Log(vCam + "has been deactivated");
                 string update = vCam + "has been deactivated";
@@ -140,5 +148,28 @@ public class StationTriggers : MonoBehaviour
             Panel.SetActive(false);
         }
     }
+
+    public void DeactivateMetaportVisibility()
+    {
+        if (metaportGameObject != null)
+        {
+            metaportGameObject.SetActive(false);
+        }
+    }
+
+    public void ActivateMetaportVisibility()
+    {
+        if (metaportGameObject != null)
+        {
+            metaportGameObject.SetActive(true);
+        }
+    }
+
+   public void InvertCheckStatus()
+   {
+   	status = !status;
+        Invoke(nameof(InvertCheckStatus),4f);
+   }
+
 }
 

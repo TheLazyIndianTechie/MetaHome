@@ -19,9 +19,6 @@ public class GameManager : MonoBehaviour
 
     public bool isServerBuild = false;
 
-    [SerializeField]
-    private Mirror.NetworkManager networkManager;
-
     public static bool testMode = false;
 
 
@@ -51,19 +48,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (isServerBuild)
-        {
-            networkManager.StartServer();
-        }
-        else
-        {
-            networkManager.StartClient();
-        }
-
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            //todo something platform specific.
-        }
+     
     }
     
     public void UpdateCoinText(int coins)
@@ -92,8 +77,5 @@ public class GameManager : MonoBehaviour
        
     }
 
-    public void StopClient()
-    {
-        networkManager.StopClient();
-    }
+   
 }
