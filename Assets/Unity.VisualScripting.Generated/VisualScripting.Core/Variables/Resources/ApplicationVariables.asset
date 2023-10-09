@@ -18,5 +18,15 @@ MonoBehaviour:
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"CurrentlyLoadedScene","value":null,"typeHandle":{"Identification":"System.String,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"PreviouslyLoadedScene","value":null,"typeHandle":{"Identification":"System.String,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"MetaPortDestination","value":null,"typeHandle":{"Identification":"System.String,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"QuestCollectionData","value":{"quests":[{"questId":101,"questName":"U
+      - Art Attack","questDescription":"U - Head over to the NFT Marketplace and
+      purchase at least 1 piece of art using your wallet funds!","itemId":3,"fulfillmentValue":1},{"questId":102,"questName":"U
+      - Home Sweet Home","questDescription":"U - Metaport to Home","itemId":4,"fulfillmentValue":1},{"questId":103,"questName":"U
+      - Home Explorer","questDescription":"U - Explore your home exterior","itemId":3,"fulfillmentValue":1},{"questId":104,"questName":"U
+      - Art-a-show-a","questDescription":"U - Display your purchased NFT art in the
+      wall of your home''s interior","itemId":3,"fulfillmentValue":1},{"questId":105,"questName":"U
+      - Mega Explorer","questDescription":"U - Metaport to ArtGallery and explore
+      the artworks","itemId":2,"fulfillmentValue":1}],"$type":"QuestCollectionData"},"typeHandle":{"Identification":"QuestCollectionData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"ActiveQuestData","value":{"questId":0,"questName":null,"questDescription":null,"itemId":0,"fulfillmentValue":0,"$type":"QuestData"},"typeHandle":{"Identification":"QuestData,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []

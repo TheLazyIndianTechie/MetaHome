@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,7 @@ public class EnterHomeTrigger : MonoBehaviour
     //
     // [SerializeField]
     // private TMP_Text loadingStatus;
+    public static event Action<int> OnEnterHomeInterior;
 
     private bool _isPlayerInTrigger = false;
     private void Update()
@@ -16,6 +18,7 @@ public class EnterHomeTrigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && _isPlayerInTrigger)
         {
            // StartCoroutine(OpenDoor());
+           OnEnterHomeInterior?.Invoke(103);
            SceneManager.LoadSceneAsync((int)SceneIndex.METAHOME_INTERIOR_SCENE);
         }
     }

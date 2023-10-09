@@ -21,8 +21,10 @@ public class NFTMarketPlace : MonoBehaviour
 	private List<GameObject> nftList = new List<GameObject>();
 	private int selectedItemIndex;
 	private GameObject nftMaskParent;
-	
-    private void OnEnable()
+
+	public static event Action<int> OnNFTFramed;
+
+	private void OnEnable()
     {
 		// Subscribe to events
 		ReactDataManager.OnGetNFTCollectionDataCallback += RefreshData;
@@ -301,7 +303,8 @@ public class NFTMarketPlace : MonoBehaviour
 	// React callback for Set Current NFT event
 	public void UpdateCurrentNFT(int status)
     {
-		CloseAllOpenedCanvas();
 		ReactDataManager.Instance.GetCurrentNFTModifyStatus(status);
+		OnNFTFramed?.Invoke(104);
+		CloseAllOpenedCanvas();
     }
 }

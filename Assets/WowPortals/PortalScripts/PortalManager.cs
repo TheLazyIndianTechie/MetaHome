@@ -13,10 +13,19 @@ namespace WowPortals.PortalScripts
         [SerializeField] private ParticleSystem vortexParticles;
         [SerializeField] private bool isPortalActive;
 
-        private void OnEnable() => WowQuestManager.OnAllQuestsCompleted += PortalActivation; 
-        
+        private void OnEnable() 
+        { 
+            QuestManager.OnAllQuestsCompleted += PortalActivation;
+            CurrentQuestManager.OnUserReadyToMetaport += PortalActivation;
 
-        private void OnDisable() => WowQuestManager.OnAllQuestsCompleted -= PortalActivation;
+        }
+
+
+        private void OnDisable() 
+        { 
+            QuestManager.OnAllQuestsCompleted -= PortalActivation;
+            CurrentQuestManager.OnUserReadyToMetaport -= PortalActivation;
+        }
 
         private void OnTriggerEnter(Collider other)
         {

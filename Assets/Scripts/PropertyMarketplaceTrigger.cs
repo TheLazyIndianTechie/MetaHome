@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class PropertyMarketplaceTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject dialogueCanvas, propertyCanvasTrigger;
 
+    public static event Action<int> OnMetaportToHome;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,6 +34,7 @@ public class PropertyMarketplaceTrigger : MonoBehaviour
             {
                 //Deactivate Dialogue box and Open the requisite canvas
                 dialogueCanvas?.SetActive(false);
+                OnMetaportToHome.Invoke(102);
                 LevelManager.LoadMetaHomeExterior();
             }
 

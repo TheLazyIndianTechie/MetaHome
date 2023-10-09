@@ -9,6 +9,7 @@ enum VisualScriptingVariables
     NFTCollectionData,
     UserOwnedNFTCollectionData,
     AvatarCollectionData,
+    QuestCollectionData,
 }
 
 public class ReactDataManager : MonoBehaviour
@@ -36,6 +37,14 @@ public class ReactDataManager : MonoBehaviour
 
     [DllImport("__Internal")]
     private static extern void SetActiveAvatar(string gameObjectName, string functionName, string currentAvatarUrl, String worldName);
+    
+    
+    [DllImport("__Internal")]
+    private static extern void GetQuestData(string gameObjectName, string functionName);
+
+    
+    [DllImport("__Internal")]
+    private static extern void CompleteQuest(int questId, string gameObjectName, string functionName);
 
 
     public static ReactDataManager Instance { get; private set; }
@@ -113,7 +122,20 @@ public class ReactDataManager : MonoBehaviour
     {
         GetAllAvatars(gameObjectName, functionName);
     }
+    
+    public void CallGetQuestData(string gameObjectName, string functionName)
+    {
+        GetQuestData(gameObjectName, functionName);
+    }
+    
+    public void CallCompleteQuest(int questId, string gameObjectName, string functionName)
+    {
+        Debug.Log("Calling Complete Quest from React Data Manager");
 
+        CompleteQuest(questId, gameObjectName, functionName);
+
+        Debug.Log("Called complete quest");
+    }
     public void CallSetActiveAvatar(string gameObjectName, string functionName, string newAvatarUrl, string worldName)
     {
         SetActiveAvatar(gameObjectName, functionName, newAvatarUrl, worldName);
@@ -162,6 +184,26 @@ public class ReactDataManager : MonoBehaviour
 
         // Dispatch Unity delegate event
         OnGetUserOwnedNFTCollectionDataCallback?.Invoke();
+    }
+
+
+    public void GetUserQuestsData(string questJSON)
+    {
+        //Deserialize the JSON quest data
+        QuestCollectionData quests = JsonUtility.FromJson<QuestCollectionData>(questJSON);
+
+        if (quests != null)
+        {
+            Variables.Application.Set(VisualScriptingVariables.QuestCollectionData.ToString(), quests);
+
+            Debug.Log(quests.quests);
+            QuestCollectionData qcd = (QuestCollectionData)Variables.Application.Get(VisualScriptingVariables.QuestCollectionData.ToString());
+
+            Debug.Log("Quest array contains " + qcd.quests.Count + " items");
+            
+            Debug.Log("Quest Data from GetUserQuestsData method in Unity:" + Variables.Application.Get(VisualScriptingVariables.QuestCollectionData.ToString()));
+        }
+
     }
 
     public void GetCurrentNFTModifyStatus(int status)

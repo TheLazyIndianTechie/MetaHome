@@ -38,6 +38,13 @@ mergeInto(LibraryManager.library, {
     window.dispatchReactUnityEvent("GetAllAvatars",  UTF8ToString(gameObjectName), UTF8ToString(functionName));
   },
 
+  GetQuestData: function (gameObjectName, functionName) {
+    console.log("gameObjectName received is:" + UTF8ToString(gameObjectName));
+    console.log("functionName received is:" + UTF8ToString(functionName));
+    window.dispatchReactUnityEvent("RetrieveQuests", UTF8ToString(gameObjectName), UTF8ToString(functionName));
+    console.log("Dispatched Event - GetQuestData");
+  },
+
   SetActiveAvatar: function (gameObjectName, functionName, currentAvatarUrl, worldName) {
     console.log("gameObjectName received is:" + gameObjectName);
     console.log("functionName received is:" + functionName);
@@ -45,4 +52,11 @@ mergeInto(LibraryManager.library, {
     console.log("worldName received is:" + worldName);
     window.dispatchReactUnityEvent("SetActiveAvatar",  UTF8ToString(gameObjectName), UTF8ToString(functionName), UTF8ToString(currentAvatarUrl), UTF8ToString(worldName));
   },
+
+  CompleteQuest: function (questId, gameObjectName, functionName){
+    console.log("JSLib: Attempting to call Complete quest for Quest " + questId + "with function name: " + functionName + " being called from Game Object " + gameObjectName);
+    window.dispatchReactUnityEvent("CompleteQuest", questId, UTF8ToString(gameObjectName), UTF8ToString(functionName));
+  },
+
+
 });
